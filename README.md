@@ -30,6 +30,11 @@ DB_PASSWORD=postgres
 DB_NAME=test_db
 ```
 
+### накатите миграцию
+```bazaar
+alembic upgrade head
+```
+
 ### запустить приложение в папке app
 ```bazaar
 python main.py
