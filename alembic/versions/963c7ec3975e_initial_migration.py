@@ -99,7 +99,7 @@ def upgrade() -> None:
             "middle_name": None,
             "last_name": "Dostoyevski",
             "username": "dostoevski",
-            "email": None,
+            "email": "dostoevski@testmail.ru",
             "password": "dostoevski321"
         },
         {
@@ -115,7 +115,7 @@ def upgrade() -> None:
             "middle_name": None,
             "last_name": "Gógol",
             "username": "gogol",
-            "email": None,
+            "email": "gogol@testmail.ru",
             "password": "gogol54321"},
         {
             "first_name": "Iván",
@@ -128,7 +128,8 @@ def upgrade() -> None:
             "first_name": "Charles",
             "middle_name": None,
             "last_name": "Dickens",
-            "username": "dickens", "email": None,
+            "username": "dickens",
+            "email": "dickens@testmail.ru",
             "password": "dickens098"
         }
     ]
