@@ -71,7 +71,6 @@ class MessageDao(BaseDao):
                 detail=f"{Ticket.__name__} with ID={body.ticket_id} without operator. Please connect it to operator",
             )
 
-
         message = Message(
             content=body.content,
             sender_type=MessageSenderType.OPERATOR.value
@@ -85,6 +84,7 @@ class MessageDao(BaseDao):
         self.session.add(new_ticket)
         return new_ticket
 
+
     def _create_first_back_message(self):
         first_back_message = Message(
             content=MessageDefaultResponse.FIRST_MESSAGE_RESPONSE.value,
@@ -92,6 +92,7 @@ class MessageDao(BaseDao):
         )
         self.session.add(first_back_message)
         return first_back_message
+
 
     def create_back_message_done(self, ticket: Ticket):
         back_message_done = Message(
@@ -101,7 +102,3 @@ class MessageDao(BaseDao):
         ticket.messages.append(back_message_done)
         self.session.add(back_message_done)
         return back_message_done
-
-
-
-
