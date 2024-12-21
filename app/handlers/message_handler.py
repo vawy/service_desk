@@ -15,7 +15,11 @@ router = APIRouter(
     "/send_to_operator",
     status_code=status.HTTP_200_OK,
     summary="Отправить сообщение оператору",
-    description="Отправить сообщение оператору",
+    description="""
+    Отправить сообщение оператору. в body указывается customer_id(какой клиент отправляет сообщение). Если у данного
+    клиента есть открытый тикет, то сообщение отправляется туда, если нет, то создается новый тикет, в который
+    отправляется сообщение от клиента и автоответ от системы
+    """,
     response_model=Union[MessageResponseDto, BasicResultResponseDto]
 )
 async def send_to_operator(
@@ -37,7 +41,10 @@ async def send_to_operator(
     "/send_to_customer",
     status_code=status.HTTP_200_OK,
     summary="Отправить сообщение заказчику в тикет",
-    description="Отправить сообщение заказчику в тикет",
+    description="""
+    Отправить сообщение заказчику в тикет. В body указывается ticket_id. Если данный тикет закрыт или у него нет 
+    прикрепленного оператора, то отдаст ошибку, если все норм, то отправит сообщение в тикет
+    """,
     response_model=BasicResultResponseDto
 )
 async def send_to_customer(

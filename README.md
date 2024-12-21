@@ -1,4 +1,8 @@
-# service_desk
+# Описание проекта service desk
+приложение ServiceDesk работает с пользовательскими обращениями, фиксирует их в базе данных, с возможностью принятия этих
+обращений сотрудниками поддержки.
+
+#### stack: Python, FastAPI, SqlAlchemy, Pydantic, PostgreSQL, asyncsio, Alembic
 ### клонируем из гитхаба
 ```bazaar
 ssh: git clone git@github.com:vawy/service_desk.git
@@ -30,12 +34,12 @@ DB_PASSWORD=postgres
 DB_NAME=test_db
 ```
 
-### накатите миграцию
+### перейдите в корень проекта и накатите миграцию
 ```bazaar
 alembic upgrade head
 ```
 
-### запустить приложение в папке app
+### запустить приложение из папки app
 ```bazaar
 python main.py
 ```

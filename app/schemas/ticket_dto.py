@@ -16,6 +16,7 @@ class TicketSearchDto(BaseModel):
         use_enum_values = True
         orm_mode = True
 
+
 class ManyTicketResponseDto(BaseModel):
     id: int
     status: TicketStatuses
@@ -27,7 +28,6 @@ class ManyTicketResponseDto(BaseModel):
     class Config:
         use_enum_values = True
 
+
 class OneTicketResponseDto(ManyTicketResponseDto):
     messages: list[MessageResponseDto]
-
-

@@ -1,5 +1,4 @@
 from fastapi import HTTPException
-from fastapi_pagination.ext.sqlalchemy import paginate
 
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -33,7 +32,6 @@ class BaseDao:
         result = result.all()
         return result
 
-
     async def find_one(
             self,
             model_id=None,
@@ -60,8 +58,6 @@ class BaseDao:
             return None
 
         return model
-
-
 
     def _build_default_query(self) -> Select:
         return select(self.model)

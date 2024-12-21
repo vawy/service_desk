@@ -40,4 +40,3 @@ class Settings(BaseSettings):
             "{user}:{password}@{host}:{port}"
             "/{database}".format(**self.db_settings)
         )
-

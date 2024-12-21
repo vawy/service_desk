@@ -6,11 +6,14 @@ from app.utils.enums import MessageSenderType
 class BaseMessageDto(BaseModel):
     content: str
 
+
 class SendMessageToOperatorDto(BaseMessageDto):
     pass
 
+
 class SendMessageToCustomerDto(BaseMessageDto):
     ticket_id: int
+
 
 class MessageResponseDto(BaseMessageDto):
     id: int

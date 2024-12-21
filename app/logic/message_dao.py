@@ -51,7 +51,6 @@ class MessageDao(BaseDao):
 
         return BasicResultResponseDto()
 
-
     async def send_to_customer(self, body: SendMessageToCustomerDto):
         """
         Отправка сообщения заказчику в тикет.
@@ -70,7 +69,6 @@ class MessageDao(BaseDao):
                 status_code=status.HTTP_409_CONFLICT,
                 detail=f"{Ticket.__name__} with ID={body.ticket_id} without operator. Please connect it to operator",
             )
-
 
         message = Message(
             content=body.content,
@@ -101,7 +99,3 @@ class MessageDao(BaseDao):
         ticket.messages.append(back_message_done)
         self.session.add(back_message_done)
         return back_message_done
-
-
-
-

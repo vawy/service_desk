@@ -15,7 +15,10 @@ router = APIRouter(
     "/search",
     status_code=status.HTTP_200_OK,
     summary="Получение списка обращений",
-    description="Получение списка обращений",
+    description="""
+    Получение списка тикетов. В body можно указать список названий статусов для фильтрации по этому полю
+    + указать сортировать по created_at или нет
+    """,
     response_model=list[ManyTicketResponseDto]
 )
 async def find_all(
@@ -51,7 +54,7 @@ async def set_ticket(
     "/{ticket_id}",
     status_code=status.HTTP_200_OK,
     summary="Получение обращения по id",
-    description="Получение обращения по id",
+    description="Получение обращения по id вместе с его сообщениями",
     response_model=OneTicketResponseDto
 )
 async def find_all(
@@ -68,7 +71,7 @@ async def find_all(
     "/close/{ticket_id}",
     status_code=status.HTTP_200_OK,
     summary="Закрыть обращение",
-    description="Закрыть обращение",
+    description="Меняется статус обращения на closed + в рамках данного тикета отправляется автоответ о решении проблемы",
     response_model=MessageResponseDto
 )
 async def close_ticket(

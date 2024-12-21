@@ -7,6 +7,7 @@ class OperatorShortResponseDto(BaseModel):
     id: int
     name: str | None
 
+
 class OperatorFullResponseDto(OperatorShortResponseDto):
     email: str | None
     username: str

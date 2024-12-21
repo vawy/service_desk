@@ -58,4 +58,3 @@ class TicketDao(BaseDao):
             )
         ticket.operator_id = operator_id
         ticket.status = TicketStatuses.IN_PROGRESS.value
-
