@@ -4,8 +4,7 @@ from pydantic import BaseModel
 
 from app.utils.enums import TicketStatuses
 from app.schemas.message_dto import MessageResponseDto
-from app.schemas.operator_dto import OperatorShortResponseDto
-from app.schemas.customer_dto import CustomerShortResponseDto
+from app.schemas.shared_dto import CustomerShortResponseDto, OperatorShortResponseDto
 
 
 class TicketSearchDto(BaseModel):

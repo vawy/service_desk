@@ -1,11 +1,6 @@
 from datetime import datetime
 
-from pydantic import BaseModel
-
-
-class CustomerShortResponseDto(BaseModel):
-    id: int
-    name: str | None
+from app.schemas.shared_dto import CustomerShortResponseDto
 
 
 class CustomerFullResponseDto(CustomerShortResponseDto):

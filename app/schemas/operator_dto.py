@@ -1,14 +1,12 @@
 from datetime import datetime
 
-from pydantic import BaseModel
-
-
-class OperatorShortResponseDto(BaseModel):
-    id: int
-    name: str | None
+from app.schemas.shared_dto import TicketShortResponseDto, OperatorShortResponseDto
 
 
 class OperatorFullResponseDto(OperatorShortResponseDto):
     email: str | None
     username: str
     created_at: datetime
+
+class OperatorOneResponseDto(OperatorFullResponseDto):
+    tickets: list[TicketShortResponseDto]
