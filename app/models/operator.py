@@ -22,7 +22,7 @@ class Operator(IdMixin, TimestampMixin, Base):
         lazy="noload"
     )
 
-    tickets = relationship("Ticket", back_populates="operator", lazy="noload", secondaryjoin="")
+    tickets = relationship("Ticket", back_populates="operator", lazy="noload")
 
     @hybrid_property
     def name(self):
