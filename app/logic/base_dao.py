@@ -38,6 +38,7 @@ class BaseDao:
             query=None,
             raise_exception=True
     ):
+
         if query is None:
             query = self._build_default_query()
 

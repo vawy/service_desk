@@ -35,7 +35,7 @@ async def find_all(
     "/set/{ticket_id}",
     status_code=status.HTTP_200_OK,
     summary="Назначить обращение на оператора",
-    description="Назначить обращение на оператора",
+    description="Назначить обращение на оператора. Меняется статус на in_progress",
     response_model=BasicResultResponseDto
 )
 async def set_ticket(

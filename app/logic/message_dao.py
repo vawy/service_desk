@@ -33,11 +33,7 @@ class MessageDao(BaseDao):
         )
         ticket = await self.find_one(query=query, raise_exception=False)
 
-        message = Message(
-            content=body.content,
-            sender_type=MessageSenderType.CUSTOMER.value
-        )
-        self.session.add(message)
+        message = self.create_message(sender_type=MessageSenderType.CUSTOMER.value, content=body.content)
 
         if not ticket:
             message.root = True
@@ -56,7 +52,13 @@ class MessageDao(BaseDao):
         Отправка сообщения заказчику в тикет.
         """
         query = select(Ticket).where(Ticket.id == body.ticket_id)
-        ticket = await self.find_one(query=query)
+        ticket = await self.session.scalar(query)
+
+        if not ticket:
+            raise HTTPException(
+                status_code=status.HTTP_409_CONFLICT,
+                detail=f"{Ticket.__name__} with ID={body.ticket_id} was not found",
+            )
 
         if ticket.status == TicketStatuses.CLOSED.value:
             raise HTTPException(
@@ -70,34 +72,31 @@ class MessageDao(BaseDao):
                 detail=f"{Ticket.__name__} with ID={body.ticket_id} without operator. Please connect it to operator",
             )
 
-        message = Message(
-            content=body.content,
-            sender_type=MessageSenderType.OPERATOR.value
-        )
+        message = self.create_message(sender_type=MessageSenderType.OPERATOR.value, content=body.content)
         ticket.messages.append(message)
-        self.session.add(message)
-
 
     def _create_ticket(self, customer_id: int):
         new_ticket = Ticket(customer_id=customer_id)
         self.session.add(new_ticket)
         return new_ticket
 
-
-    def _create_first_back_message(self):
+    @staticmethod
+    def _create_first_back_message():
         first_back_message = Message(
             content=MessageDefaultResponse.FIRST_MESSAGE_RESPONSE.value,
             sender_type=MessageSenderType.SYSTEM.value
         )
-        self.session.add(first_back_message)
         return first_back_message
 
-
-    def create_back_message_done(self, ticket: Ticket):
+    @staticmethod
+    def create_back_message_done():
         back_message_done = Message(
             content=MessageDefaultResponse.DONE_MESSAGE_RESPONSE.value,
             sender_type=MessageSenderType.SYSTEM.value
         )
-        ticket.messages.append(back_message_done)
-        self.session.add(back_message_done)
         return back_message_done
+
+    @staticmethod
+    def create_message(sender_type: MessageSenderType, content: str):
+        message = Message(sender_type=sender_type, content=content)
+        return message

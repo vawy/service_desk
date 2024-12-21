@@ -40,14 +40,24 @@ class TicketDao(BaseDao):
 
     async def close_ticket(self, ticket_id: int):
         ticket = await self.find_one(model_id=ticket_id)
-        if ticket.status == TicketStatuses.CLOSED.value:
+
+        if ticket.status != TicketStatuses.IN_PROGRESS.value:
+            if ticket.status == TicketStatuses.CLOSED.value:
+                detail = f"{Ticket.__name__} with ID={ticket_id} was closed"
+            else:
+                detail = f"{Ticket.__name__} with ID={ticket_id} does not have an operator. To close it you should to connect an operator"
+
             raise HTTPException(
                 status_code=status.HTTP_409_CONFLICT,
-                detail=f"{Ticket.__name__} with ID={ticket_id} was closed",
+                detail=detail,
             )
+
         ticket.status = TicketStatuses.CLOSED.value
+
         message_dao = MessageDao(session=self.session)
-        return message_dao.create_back_message_done(ticket=ticket)
+        back_message_done = message_dao.create_back_message_done()
+        ticket.messages.append(back_message_done)
+        return back_message_done
 
     async def set_ticket(self, ticket_id: int, operator_id: int):
         ticket = await self.find_one(model_id=ticket_id)
