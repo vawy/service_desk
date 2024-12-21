@@ -83,6 +83,7 @@ class MessageDao(BaseDao):
         self.session.add(new_ticket)
         return new_ticket
 
+
     def _create_first_back_message(self):
         first_back_message = Message(
             content=MessageDefaultResponse.FIRST_MESSAGE_RESPONSE.value,
@@ -90,6 +91,7 @@ class MessageDao(BaseDao):
         )
         self.session.add(first_back_message)
         return first_back_message
+
 
     def create_back_message_done(self, ticket: Ticket):
         back_message_done = Message(

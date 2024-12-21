@@ -27,5 +27,5 @@ class PostgresAccessor:
 
     @asynccontextmanager
     async def get_master_session(self):
-        async with self.session_maker.begin() as session:  # pylint: disable=no-member
+        async with self.session_maker.begin() as session:
             yield session
